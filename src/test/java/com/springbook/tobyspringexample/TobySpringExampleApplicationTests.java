@@ -1,4 +1,4 @@
-package com.kimsoar.tobyspringexample;
+package com.springbook.tobyspringexample;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
