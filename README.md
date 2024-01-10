@@ -12,12 +12,18 @@ mysql> grant all privileges on springbook.* to 'spring'@'%';
 mysql> grant grant option on springbook.* to 'spring'@'%';
 mysql> flush privileges;
 
+mysql> create database testdb;
+mysql> grant all privileges on testdb.* to 'spring'@'%';
+mysql> grant grant option on testdb.* to 'spring'@'%';
+mysql> flush privileges;
+
 
 ~~~
 
 
 ## 1.1 초난감 DAO
 ```SQL
+use springbook
 CREATE TABLE USERS (
     id varchar(10) primary key,
     name varchar(20) not null,
