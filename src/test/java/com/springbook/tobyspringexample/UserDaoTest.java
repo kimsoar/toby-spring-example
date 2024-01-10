@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
+@ContextConfiguration(locations = "/test-applicationContext.xml")
 @DirtiesContext
 public class UserDaoTest {
     @Autowired
@@ -33,9 +33,6 @@ public class UserDaoTest {
         this.user1 = new User("gyumee", "박성철", "springno1");
         this.user2 = new User("leegw700", "이길원", "springno2");
         this.user3 = new User("bumjin", "박범진", "springno3");
-
-        DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://localhost/testdb","spring", "book", true);
-        dao.setDataSource(dataSource);
     }
 
     @Test
