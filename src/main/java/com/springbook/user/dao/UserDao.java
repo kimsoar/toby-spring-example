@@ -15,11 +15,10 @@ public class UserDao {
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
 
-        // 코드를 통한 JdbcContext DI
-        // jdbcContext가 싱글톤이 아니므로 매번 생성된다.
-        this.jdbcContext = new JdbcContext();
-        this.jdbcContext.setDataSource(dataSource);
+    public void setJdbcContext(JdbcContext jdbcContext) {
+        this.jdbcContext = jdbcContext;
     }
 
     public UserDao() {}
@@ -67,8 +66,7 @@ public class UserDao {
     }
 
     public void deleteAll() throws SQLException {
-        StatementStrategy st = new DeleteAllStatement();
-        jdbcContext.workWithStatementStrategy(st);
+        jdbcContext.executeSql("delete from users");
     }
 
     public int getCount() throws SQLException {
