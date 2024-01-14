@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserDao {
     private DataSource dataSource;
@@ -31,11 +32,11 @@ public class UserDao {
 
     public UserDao() {}
 
-    public void add(final User user) throws SQLException {
+    public void add(final User user) {
         jdbcTemplate.update("insert into users(id, name, password) values (?,?,?)", user.getId(), user.getName(), user.getPassword());
     }
 
-    public User get(String id) throws SQLException {
+    public User get(String id) {
         return jdbcTemplate.queryForObject("select * from users where id = ?",
                 new Object[]{id},
                 new RowMapper<User>() {
@@ -50,12 +51,26 @@ public class UserDao {
                 });
     }
 
-    public void deleteAll() throws SQLException {
+    public void deleteAll() {
         jdbcTemplate.update("delete from users");
     }
 
-    public int getCount() throws SQLException {
+    public int getCount() {
         return jdbcTemplate.queryForObject("select count(*) from users", Integer.class);
+    }
+
+    public List<User> getAll() {
+        return jdbcTemplate.query("select * from users order by id",
+                new RowMapper<User>() {
+                    @Override
+                    public User mapRow(ResultSet resultSet, int i) throws SQLException {
+                        User user = new User();
+                        user.setId(resultSet.getString("id"));
+                        user.setName(resultSet.getString("name"));
+                        user.setPassword(resultSet.getString("password"));
+                        return user;
+                    }
+                });
     }
 }
 
